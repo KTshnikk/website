@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PiN</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Навигация -->
+    <div class="container header-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-pill">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white fw-bold d-flex align-items-center gap-2" href="#">
+                    <i class="bi bi-geo-alt-fill" style="color: var(--accent-indigo);"></i> PiN
+                </a>
+                <div class="navbar-nav ms-auto d-flex flex-row gap-4">
+                    <a class="nav-link" href="#about">О проекте</a>
+                    <a class="nav-link" href="#team">Команда</a>
+                    <a class="nav-link" href="#service">Сервис</a>
+                    <a class="nav-link" href="#blog">Блог</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Первый экран (Hero) -->
+    <div class="container hero-container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <div class="hero-badge mb-3">
+                    <span class="status-dot"></span> Отчёт о ходе разработки
+                </div>
+                <h1 class="display-5 fw-bold text-white mb-3">
+                    Платформа локаций и городских маршрутов
+                </h1>
+                <p class="text-secondary fs-5 mb-4">
+                    «PiN» — веб-сервис для поиска уединённых мест, формирования прогулок и обмена локациями внутри сообщества.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="#about" class="btn btn-primary px-4 py-2 border-0" style="background-color: var(--accent-indigo);">Документация</a>
+                    <a href="#team" class="btn btn-outline-secondary px-4 py-2 border-secondary text-light">Состав команды</a>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="glass-panel">
+                    <div class="text-secondary small fw-bold mb-3">СВОДНЫЕ ДАННЫЕ ПРОЕКТА</div>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="fs-4 fw-bold text-white" id="team-count">0</div>
+                            <div class="text-secondary small">Участников</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="fs-4 fw-bold text-white">JS / HTML</div>
+                            <div class="text-secondary small">Стек сайта</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="fs-4 fw-bold text-white">GitHub</div>
+                            <div class="text-secondary small">Хостинг</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="fs-4 fw-bold text-white">Sprint 1</div>
+                            <div class="text-secondary small">Текущий этап</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5">
+
+        <!-- О проекте -->
+        <section id="about" class="py-5">
+            <div class="section-tag">Архитектура и задачи</div>
+            <h2 class="section-title">О проекте</h2>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="glass-panel h-100">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <i class="bi bi-box-seam fs-3" style="color: var(--accent-indigo);"></i>
+                            <h5 class="text-white m-0">Цель системы</h5>
+                        </div>
+                        <p class="text-secondary m-0">
+                            Автоматизация поиска нестандартных городских объектов (тихие дворы, панорамные площадки, места для встреч) с фильтрацией по уровню приватности и удобными маршрутами.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="glass-panel h-100">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <i class="bi bi-cpu fs-3" style="color: var(--accent-cyan);"></i>
+                            <h5 class="text-white m-0">Технический стек</h5>
+                        </div>
+                        <p class="text-secondary m-0">
+                            HTML5, CSS3, JavaScript, Bootstrap 5, интеграция с REST API сторонних навигаторов и карта локаций.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Команда -->
+        <section id="team" class="py-5">
+            <div class="section-tag">Участники рабочей группы</div>
+            <h2 class="section-title">Команда проекта</h2>
+
+            <div class="row g-3" id="team-container">
+                <!-- Заполняется автоматически из script.js -->
+            </div>
+        </section>
+
+        <!-- Модули -->
+        <section id="service" class="py-5">
+            <div class="section-tag">Архитектура системы</div>
+            <h2 class="section-title">Функциональные модули</h2>
+
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="glass-panel h-100">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <span class="section-tag d-block mb-1">Модуль 01</span>
+                                <h3 class="text-white h4 m-0">Сервис и Интерактивная карта</h3>
+                            </div>
+                            <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 px-2 py-1">
+                                <i class="bi bi-clock-history me-1"></i> В разработке
+                            </span>
+                        </div>
+                        <p class="text-secondary small mb-4">
+                            Ключевой клиентский блок приложения для поиска, визуализации и работы с локациями.
+                        </p>
+                        <div class="text-white small fw-semibold mb-2">Запланированный функционал:</div>
+                        <ul class="list-unstyled text-secondary small m-0 d-flex flex-column gap-2">
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="bi bi-check2-circle" style="color: var(--accent-indigo);"></i>
+                                <span>Интерактивная карта с метками объектов</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="bi bi-check2-circle" style="color: var(--accent-indigo);"></i>
+                                <span>Фильтрация по категориям и уровню уединённости</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="bi bi-check2-circle" style="color: var(--accent-indigo);"></i>
+                                <span>Построение авторских прогулочных маршрутов</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" id="auth">
+                    <div class="glass-panel h-100">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <span class="section-tag d-block mb-1">Модуль 02</span>
+                                <h3 class="text-white h4 m-0">Авторизация и Права доступа</h3>
+                            </div>
+                            <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 px-2 py-1">
+                                <i class="bi bi-clock-history me-1"></i> В разработке
+                            </span>
+                        </div>
+                        <p class="text-secondary small mb-4">
+                            Подсистема управления пользователями, сессиями и разграничением прав доступа (RBAC).
+                        </p>
+                        <div class="text-white small fw-semibold mb-2">Запланированный функционал:</div>
+                        <ul class="list-unstyled text-secondary small m-0 d-flex flex-column gap-2">
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="bi bi-check2-circle" style="color: var(--accent-cyan);"></i>
+                                <span>Регистрация, аутентификация и личный кабинет</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="bi bi-check2-circle" style="color: var(--accent-cyan);"></i>
+                                <span>Роли: Гость, Пользователь, Модератор, Админ</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="bi bi-check2-circle" style="color: var(--accent-cyan);"></i>
+                                <span>Нейросетевая фильтрация текста и отзывов</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блог -->
+        <section id="blog" class="py-5">
+            <div class="section-tag">История изменений</div>
+            <h2 class="section-title">Блог разработки</h2>
+
+            <div class="blog-timeline" id="blog-container">
+                <!-- Заполняется автоматически из script.js -->
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
