@@ -1,28 +1,70 @@
 // --- ДАННЫЕ КОМАНДЫ ---
 const teamMembers = [
     {
-        name: "Иван Иванов",
-        role: "Team Lead / Backend",
-        photo: "images/member1.jpg", // Если нет фото, оставь null или ""
-        initials: "ИИ"
+        name: "Леонова Анастасия",
+        role: "Проект-менеджер-разработчик (ПИЭ-23)",
+        photo: "images/leonova.jpg",
+        initials: "АЛ"
     },
     {
-        name: "Петр Петров",
-        role: "Frontend Developer",
-        photo: null,
-        initials: "ПП"
+        name: "Вадим Алимов",
+        role: "Младший ПМ (МОАИС-25)",
+        photo: "images/alimov.jpg",
+        initials: "ВА"
     },
     {
-        name: "Алексей Сидоров",
-        role: "System Analyst / Technical Writer",
-        photo: null,
+        name: "Ямщиков Юрий",
+        role: "Аналитик (ПМИб-23)",
+        photo: "images/yamshikov.jpg",
+        initials: "ЮЯ"
+    },
+    {
+        name: "Исаев Никита",
+        role: "Аналитик (ПМИб-25)",
+        photo: "images/isaev.jpg",
+        initials: "НИ"
+    },
+    {
+        name: "Лялин Олег",
+        role: "Проектировщик (ИВТ-24)",
+        photo: "images/lalin.jpg",
+        initials: "ОЛ"
+    },
+    {
+        name: "Леонов Елисей",
+        role: "Проектировщик (МОАИС-25)",
+        photo: "images/elisey.jpg",
+        initials: "ЕЛ"
+    },
+    {
+        name: "Герасимов Дмитрий",
+        role: "Тестировщик (МОАИС-24)",
+        photo: "images/gerasimov.jpg",
+        initials: "ДГ"
+    },
+    {
+        name: "Климов Артем",
+        role: "Тестировщик (ПМИб-25)",
+        photo: "images/klimov.jpg",
+        initials: "АК"
+    },
+    {
+        name: "Смирнова Ангелина",
+        role: "Разработчик-ПМ (ПИЭ-23)",
+        photo: "images/angelina.jpg",
         initials: "АС"
     },
     {
-        name: "Анна Смирнова",
-        role: "UI/UX Designer",
-        photo: null,
-        initials: "АС"
+        name: "Дорофеев Игорь",
+        role: "Разработчик (МОАИС-23)",
+        photo: "images/dorofeef.jpg",
+        initials: "ИД"
+    },
+    {
+        name: "Шаплов Данил",
+        role: "Разработчик (ПМИб-25)",
+        photo: "images/shaplov.jpg",
+        initials: "ДШ"
     }
 ];
 
@@ -57,12 +99,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 : `<div class="avatar-badge">${member.initials}</div>`;
 
             return `
-                <div class="col-md-6 col-lg-3">
+                <div class="col-md-6 col-lg-4">
                     <div class="team-card-horizontal">
                         ${avatarHtml}
                         <div class="overflow-hidden">
                             <div class="text-white fw-semibold text-truncate">${member.name}</div>
-                            <div class="text-secondary small text-truncate">${member.role}</div>
+                            <div class="text-secondary small text-truncate" title="${member.role}">${member.role}</div>
                         </div>
                     </div>
                 </div>
