@@ -142,7 +142,7 @@ function updateUIForRole() {
         if (loggedInView) loggedInView.style.display = 'none';
     }
 
-    // Перерисовываем блоки, чтобы кнопки удаления появлялись/скрывались на лету
+    // ВАЖНО: гарантированно обновляем блоки при каждом изменении роли
     renderBlogPosts();
     renderModules();
 }
