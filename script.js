@@ -1,84 +1,94 @@
-// --- ДАННЫЕ КОМАНДЫ ---
+// --- ДАННЫЕ КОМАНДЫ (11 ЧЕЛОВЕК) ---
 const teamMembers = [
     {
         name: "Леонова Анастасия",
         role: "Проект-менеджер-разработчик (ПИЭ-23)",
-        photo: "images/leonova.jpg",
+        photo: null,
         initials: "АЛ"
     },
     {
         name: "Вадим Алимов",
         role: "Младший ПМ (МОАИС-25)",
-        photo: "images/alimov.jpg",
+        photo: null,
         initials: "ВА"
     },
     {
         name: "Ямщиков Юрий",
         role: "Аналитик (ПМИб-23)",
-        photo: "images/yamshikov.jpg",
+        photo: null,
         initials: "ЮЯ"
     },
     {
         name: "Исаев Никита",
         role: "Аналитик (ПМИб-25)",
-        photo: "images/isaev.jpg",
+        photo: null,
         initials: "НИ"
     },
     {
         name: "Лялин Олег",
         role: "Проектировщик (ИВТ-24)",
-        photo: "images/lalin.jpg",
+        photo: null,
         initials: "ОЛ"
     },
     {
         name: "Леонов Елисей",
         role: "Проектировщик (МОАИС-25)",
-        photo: "images/elisey.jpg",
+        photo: null,
         initials: "ЕЛ"
     },
     {
         name: "Герасимов Дмитрий",
         role: "Тестировщик (МОАИС-24)",
-        photo: "images/gerasimov.jpg",
+        photo: null,
         initials: "ДГ"
     },
     {
         name: "Климов Артем",
         role: "Тестировщик (ПМИб-25)",
-        photo: "images/klimov.jpg",
+        photo: null,
         initials: "АК"
     },
     {
         name: "Смирнова Ангелина",
         role: "Разработчик-ПМ (ПИЭ-23)",
-        photo: "images/angelina.jpg",
+        photo: null,
         initials: "АС"
     },
     {
         name: "Дорофеев Игорь",
         role: "Разработчик (МОАИС-23)",
-        photo: "images/dorofeef.jpg",
+        photo: null,
         initials: "ИД"
     },
     {
         name: "Шаплов Данил",
         role: "Разработчик (ПМИб-25)",
-        photo: "images/shaplov.jpg",
+        photo: null,
         initials: "ДШ"
     }
 ];
 
-// --- ДАННЫЕ БЛОГА ---
+// --- ЭТАПЫ И БЛОГ РАЗРАБОТКИ ---
 const blogPosts = [
     {
-        title: "Запуск первого спринта и выбор стека",
-        date: "10.09.2026",
-        text: "Сформировали состав команды, утвердили архитектурные требования и начали верстку презентационной страницы."
+        title: "Расчет COCOMO II и планирование",
+        date: "06.09.2026",
+        text: "Проведен расчет трудоемкости (4013 человеко-часов) и длительности проекта (4.2 месяца), распределены ресурсы команды."
     },
     {
-        title: "Проектирование схемы данных",
-        date: "12.09.2026",
-        text: "Разработали диаграмму сущностей и определили ключевые сценарии взаимодействия с интерактивной картой."
+        title: "Предпроектное обследование и анализ аналогов",
+        date: "10.09.2026",
+        text: "Сформированы требования на основе интервью с заказчиком и обзора рыночных аналогов (Komoot, WalksWays, Clio)."
+    },
+    {
+        title: "Проектирование схемы данных и архитектуры",
+        date: "16.09.2026",
+        text: "Разработана даталогическая модель базы данных (7 таблиц с индексами) и структурные схемы приложения."
+    },
+    {
+        title: "Приемочное тестирование и тест-кейсы",
+        date: "20.09.2026",
+        text: "Подготовлены качественные и количественные критерии приемки, а также сценарии UAT-тестирования."
     }
 ];
 
@@ -87,10 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. Отрисовка команды
     const teamContainer = document.getElementById("team-container");
     const teamCountElement = document.getElementById("team-count");
+    const teamCountBtn = document.getElementById("team-count-btn");
 
-    if (teamCountElement) {
-        teamCountElement.textContent = teamMembers.length;
-    }
+    if (teamCountElement) teamCountElement.textContent = teamMembers.length;
+    if (teamCountBtn) teamCountBtn.textContent = teamMembers.length;
 
     if (teamContainer) {
         teamContainer.innerHTML = teamMembers.map(member => {
@@ -112,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }).join('');
     }
 
-    // 2. Отрисовка блога
+    // 2. Отрисовка блога и этапов
     const blogContainer = document.getElementById("blog-container");
 
     if (blogContainer) {
