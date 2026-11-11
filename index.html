@@ -21,7 +21,7 @@
                     <a class="nav-link" href="#about">О проекте</a>
                     <a class="nav-link" href="#team">Команда</a>
                     <a class="nav-link" href="#service">Сервис</a>
-                    <a class="nav-link" href="#admin-panel" id="admin-nav-link" style="display: none;">Модерация (Админ)</a>
+                    <a class="nav-link" href="#admin-panel" id="admin-nav-link" style="display: none;">Админ-панель</a>
                     <a class="nav-link" href="#blog">Блог</a>
                     
                     <!-- Кнопка авторизации -->
@@ -120,15 +120,62 @@
             </div>
         </section>
 
-        <!-- Административная панель (видна для роли Admin) -->
+        <!-- Административная панель (доступна только админу) -->
         <section id="admin-panel" class="py-5" style="display: none;">
-            <div class="section-tag">Панель управления</div>
-            <h2 class="section-title">Административная панель (Модерация)</h2>
+            <div class="section-tag">Управление контентом</div>
+            <h2 class="section-title">Административная панель</h2>
 
-            <div class="glass-panel">
-                <p class="text-secondary small mb-3">Заявки пользователей на модерацию (CRUD операции и модерация):</p>
-                <div id="admin-requests-list" class="d-flex flex-column gap-3">
-                    <!-- Заполняется из script.js -->
+            <div class="row g-4">
+                <!-- Форма добавления записи в блог разработки -->
+                <div class="col-lg-6">
+                    <div class="glass-panel h-100">
+                        <h4 class="text-white mb-3"><i class="bi bi-journal-plus me-2 text-indigo"></i>Добавить запись в блог</h4>
+                        <form id="add-blog-form" onsubmit="handleAddNewBlog(event)">
+                            <div class="mb-3">
+                                <label class="text-secondary small mb-1">Дата или период</label>
+                                <input type="text" id="blog-date" class="form-control bg-dark text-white border-secondary" placeholder="например, 21.09.2026" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="text-secondary small mb-1">Роль</label>
+                                <input type="text" id="blog-role" class="form-control bg-dark text-white border-secondary" placeholder="например, Разработчик" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="text-secondary small mb-1">Заголовок этапа</label>
+                                <input type="text" id="blog-title" class="form-control bg-dark text-white border-secondary" placeholder="Название этапа" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="text-secondary small mb-1">Автор(ы)</label>
+                                <input type="text" id="blog-authors" class="form-control bg-dark text-white border-secondary" placeholder="Имена разработчиков" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="text-secondary small mb-1">Текст описания</label>
+                                <textarea id="blog-text" class="form-control bg-dark text-white border-secondary" rows="3" placeholder="Описание проделанной работы..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100" style="background-color: var(--accent-indigo);">Опубликовать в блог</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Форма добавления функционального модуля -->
+                <div class="col-lg-6">
+                    <div class="glass-panel h-100">
+                        <h4 class="text-white mb-3"><i class="bi bi-plus-square me-2 text-cyan"></i>Добавить функциональный модуль</h4>
+                        <form id="add-module-form" onsubmit="handleAddNewModule(event)">
+                            <div class="mb-3">
+                                <label class="text-secondary small mb-1">Номер и название модуля</label>
+                                <input type="text" id="mod-title" class="form-control bg-dark text-white border-secondary" placeholder="Модуль 03: Название" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="text-secondary small mb-1">Краткое описание</label>
+                                <input type="text" id="mod-desc" class="form-control bg-dark text-white border-secondary" placeholder="Описание модуля" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="text-secondary small mb-1">Функции (через запятую или точку с запятой)</label>
+                                <textarea id="mod-features" class="form-control bg-dark text-white border-secondary" rows="4" placeholder="Пункт 1; Пункт 2; Пункт 3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-outline-info w-100">Добавить модуль на сайт</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -138,7 +185,8 @@
             <div class="section-tag">Архитектура системы</div>
             <h2 class="section-title">Функциональные модули</h2>
 
-            <div class="row g-4">
+            <div class="row g-4" id="modules-container">
+                <!-- Модуль 1 -->
                 <div class="col-lg-6">
                     <div class="glass-panel h-100">
                         <div class="d-flex justify-content-between align-items-start mb-3">
@@ -171,6 +219,7 @@
                     </div>
                 </div>
 
+                <!-- Модуль 2 -->
                 <div class="col-lg-6" id="auth">
                     <div class="glass-panel h-100">
                         <div class="d-flex justify-content-between align-items-start mb-3">
@@ -178,19 +227,19 @@
                                 <span class="section-tag d-block mb-1">Модуль 02</span>
                                 <h3 class="text-white h4 m-0">Авторизация и Права доступа</h3>
                             </div>
-                            <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1" id="auth-status-badge">
-                                <i class="bi bi-shield-check me-1"></i> Интерактивный демо-режим
+                            <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1">
+                                <i class="bi bi-shield-check me-1"></i> Активно
                             </span>
                         </div>
                         <p class="text-secondary small mb-4">
                             Подсистема управления пользователями, сессиями и разграничением прав доступа (RBAC).
                         </p>
-                        <div class="text-white small fw-semibold mb-2">Текущий статус вашей сессии:</div>
+                        <div class="text-white small fw-semibold mb-2">Статус сессии:</div>
                         <div class="p-3 mb-3 rounded border border-secondary bg-dark text-white small">
                             Текущая роль: <strong id="current-role-display" style="color: var(--accent-cyan);">Гость</strong>
                         </div>
                         <button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#authModal">
-                            Сменить роль / Тест авторизации
+                            Войти в систему
                         </button>
                     </div>
                 </div>
@@ -203,35 +252,39 @@
             <h2 class="section-title">Блог разработки</h2>
 
             <div class="blog-timeline" id="blog-container">
-                <!-- Заполняется автоматически из script.js -->
+                <!-- Заполняется из script.js -->
             </div>
         </section>
 
     </div>
 
-    <!-- Модальное окно авторизации и выбора роли -->
+    <!-- Модальное окно авторизации (Логин / Пароль) -->
     <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-dark text-white border border-secondary">
                 <div class="modal-header border-secondary">
-                    <h5 class="modal-title"><i class="bi bi-person-lock me-2"></i>Авторизация / Тест ролей</h5>
+                    <h5 class="modal-title"><i class="bi bi-box-arrow-in-right me-2"></i>Авторизация в системе PiN</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-secondary small">Выберите роль для тестирования разграничения прав доступа системы PiN:</p>
-                    <div class="d-flex flex-column gap-2">
-                        <button class="btn btn-outline-light text-start p-3" onclick="setRole('guest')" data-bs-dismiss="modal">
-                            <div class="fw-bold">Гость (Без авторизации)</div>
-                            <div class="small text-secondary">Только просмотр меток и публичной информации.</div>
-                        </button>
-                        <button class="btn btn-outline-primary text-start p-3" onclick="setRole('user')" data-bs-dismiss="modal">
-                            <div class="fw-bold text-primary">Пользователь</div>
-                            <div class="small text-secondary">Доступно добавление меток, комментариев и подтверждение локаций.</div>
-                        </button>
-                        <button class="btn btn-outline-danger text-start p-3" onclick="setRole('admin')" data-bs-dismiss="modal">
-                            <div class="fw-bold text-danger">Администратор</div>
-                            <div class="small text-secondary">Полный доступ + Административная панель модерации заявок.</div>
-                        </button>
+                    <form id="login-form" onsubmit="handleLogin(event)">
+                        <div class="mb-3">
+                            <label class="form-label text-secondary small">Логин или Email</label>
+                            <input type="text" id="login-input" class="form-control bg-dark text-white border-secondary" placeholder="например, admin или user" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-secondary small">Пароль</label>
+                            <input type="password" id="password-input" class="form-control bg-dark text-white border-secondary" placeholder="••••••••" required>
+                        </div>
+                        <div id="login-error" class="text-danger small mb-3" style="display: none;"></div>
+                        <div class="p-2 mb-3 rounded bg-secondary bg-opacity-10 text-secondary small">
+                            💡 <strong>Подсказка:</strong> Для входа администратора используйте логин <code>admin</code> и пароль <code>admin</code>. Для обычного пользователя — любые другие данные.
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" style="background-color: var(--accent-indigo);">Войти</button>
+                    </form>
+                    <div id="logged-in-view" style="display: none;" class="text-center py-3">
+                        <p class="text-success mb-3">Вы успешно авторизованы в системе!</p>
+                        <button class="btn btn-outline-danger btn-sm" onclick="handleLogout()">Выйти из аккаунта</button>
                     </div>
                 </div>
             </div>
