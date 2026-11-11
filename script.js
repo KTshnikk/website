@@ -20,7 +20,7 @@ const defaultBlogPosts = [
         role: "Проект-менеджер",
         title: "Концепция проекта и расчеты по методике COCOMO II",
         authors: "Леонова Анастасия — Проект-менеджер",
-        text: "Разработана концепция интерактивной карты «PiN» для поиска малопопулярных локаций и построения маршрутов[cite: 4, 6]. Определена целевая аудитория (творческая молодежь, исследователи, горожане)[cite: 4, 6]. Произведен расчет трудоемкости и длительности проекта по методике COCOMO II: общая трудоемкость составила 26.4 чел./мес. (4013 человеко-часов), а расчетная длительность — 4.2 месяца при штате из 11 человек[cite: 6]. Сформирован детальный план работ и распределение ресурсов."
+        text: "Разработана концепция интерактивной карты «PiN» для поиска малопопулярных локаций и построения маршрутов. Определена целевая аудитория (творческая молодежь, исследователи, горожане). Произведен расчет трудоемкости и длительности проекта по методике COCOMO II: общая трудоемкость составила 26.4 чел./мес. (4013 человеко-часов), а расчетная длительность — 4.2 месяца при штате из 11 человек. Сформирован детальный план работ и распределение ресурсов."
     },
     {
         date: "04.09.2026 – 10.09.2026",
@@ -34,14 +34,14 @@ const defaultBlogPosts = [
         role: "Аналитик + Проектировщик",
         title: "Проектирование структуры БД и архитектуры",
         authors: "Ямщиков Юрий, Исаев Никита, Лялин Олег, Леонов Елисей — Аналитики и Проектировщики",
-        text: "Спроектирована даталогическая модель базы данных, состоящая из 7 взаимосвязанных таблиц (User, Location, Route, Route_Location, Media, Comment, Verification) с индексами на внешних ключах[cite: 6]. Определены входные и выходные данные, разработаны структурные схемы приложения и черновой прототип пользовательского интерфейса в сдержанной цветовой палитре[cite: 6]."
+        text: "Спроектирована даталогическая модель базы данных, состоящая из 7 взаимосвязанных таблиц (User, Location, Route, Route_Location, Media, Comment, Verification) с индексами на внешних ключах. Определены входные и выходные данные, разработаны структурные схемы приложения и черновой прототип пользовательского интерфейса в сдержанной цветовой палитре."
     },
     {
         date: "17.09.2026 – 20.09.2026",
         role: "Аналитик + Тестировщик",
         title: "Приемочное тестирование и критерии готовности",
         authors: "Герасимов Дмитрий, Климов Артем, Ямщиков Юрий — Тестировщики и Аналитики",
-        text: "Определены качественные и количественные критерии оценки готовности будущего приложения[cite: 7]. Разработаны детальные тест-кейсы и чек-листы для приемочного пользовательского тестирования (UAT), охватывающие проверку интерактивной карты, фильтрации по уединенности, двухуровневой модерации и интеграции с внешними навигаторами[cite: 7]."
+        text: "Определены качественные и количественные критерии оценки готовности будущего приложения. Разработаны детальные тест-кейсы и чек-листы для приемочного пользовательского тестирования (UAT), охватывающие проверку интерактивной карты, фильтрации по уединенности, двухуровневой модерации и интеграции с внешними навигаторами."
     }
 ];
 
@@ -80,14 +80,12 @@ function handleLogin(event) {
     const password = document.getElementById('password-input').value.trim();
     const errorDiv = document.getElementById('login-error');
 
-    // Проверка учетных данных администратора
     if (login === 'admin' && password === 'admin') {
         localStorage.setItem('user_role', 'admin');
         localStorage.setItem('username', login);
         errorDiv.style.display = 'none';
         closeModalAndRefresh();
     } else if (login.length > 0 && password.length > 0) {
-        // Обычный пользователь для любых других непустых данных
         localStorage.setItem('user_role', 'user');
         localStorage.setItem('username', login);
         errorDiv.style.display = 'none';
@@ -143,9 +141,13 @@ function updateUIForRole() {
         if (loginForm) loginForm.style.display = 'block';
         if (loggedInView) loggedInView.style.display = 'none';
     }
+
+    // Перерисовываем блоки, чтобы кнопки удаления появлялись/скрывались на лету
+    renderBlogPosts();
+    renderModules();
 }
 
-// --- ФУНКЦИИ АДМИН-ПАНЕЛИ (ДОБАВЛЕНИЕ БЛОГА И МОДУЛЕЙ) ---
+// --- CRUD: ДОБАВЛЕНИЕ И УДАЛЕНИЕ ЗАПИСЕЙ БЛОГА И МОДУЛЕЙ ---
 function handleAddNewBlog(event) {
     event.preventDefault();
     const date = document.getElementById('blog-date').value;
@@ -154,13 +156,22 @@ function handleAddNewBlog(event) {
     const authors = document.getElementById('blog-authors').value;
     const text = document.getElementById('blog-text').value;
 
-    let posts = JSON.parse(localStorage.getItem('pin_blog_posts')) || [];
-    posts.unshift({ date, role, title, authors, text }); // добавляем в начало
+    let posts = JSON.parse(localStorage.getItem('pin_blog_posts')) || defaultBlogPosts;
+    posts.unshift({ date, role, title, authors, text });
     localStorage.setItem('pin_blog_posts', JSON.stringify(posts));
 
     document.getElementById('add-blog-form').reset();
     alert('Новая запись успешно добавлена в блог разработки!');
     renderBlogPosts();
+}
+
+function deleteBlogPost(index) {
+    if (confirm('Вы уверены, что хотите удалить эту запись из блога разработки?')) {
+        let posts = JSON.parse(localStorage.getItem('pin_blog_posts')) || defaultBlogPosts;
+        posts.splice(index, 1);
+        localStorage.setItem('pin_blog_posts', JSON.stringify(posts));
+        renderBlogPosts();
+    }
 }
 
 function handleAddNewModule(event) {
@@ -170,7 +181,7 @@ function handleAddNewModule(event) {
     const featuresRaw = document.getElementById('mod-features').value;
     const features = featuresRaw.split(/[\n;]+/).map(f => f.trim()).filter(f => f.length > 0);
 
-    let modules = JSON.parse(localStorage.getItem('pin_modules')) || [];
+    let modules = JSON.parse(localStorage.getItem('pin_modules')) || defaultModules;
     modules.push({
         number: `Модуль 0${modules.length + 1}`,
         title: title,
@@ -186,19 +197,32 @@ function handleAddNewModule(event) {
     renderModules();
 }
 
+function deleteModule(index) {
+    if (confirm('Вы уверены, что хотите удалить этот функциональный модуль?')) {
+        let modules = JSON.parse(localStorage.getItem('pin_modules')) || defaultModules;
+        modules.splice(index, 1);
+        localStorage.setItem('pin_modules', JSON.stringify(modules));
+        renderModules();
+    }
+}
+
 // --- ОТРИСОВКА БЛОГА И МОДУЛЕЙ НА СТРАНИЦЕ ---
 function renderBlogPosts() {
     const blogContainer = document.getElementById("blog-container");
     const posts = JSON.parse(localStorage.getItem('pin_blog_posts')) || defaultBlogPosts;
+    const isAdmin = localStorage.getItem('user_role') === 'admin';
 
     if (blogContainer) {
-        blogContainer.innerHTML = posts.map(post => `
+        blogContainer.innerHTML = posts.map((post, index) => `
             <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <div class="glass-panel">
                     <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
-                        <span class="text-secondary small fw-bold"><i class="bi bi-calendar-event me-1"></i> ${post.date}</span>
-                        <span class="badge" style="background: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.25);">${post.role}</span>
+                        <div>
+                            <span class="text-secondary small fw-bold me-2"><i class="bi bi-calendar-event me-1"></i> ${post.date}</span>
+                            <span class="badge" style="background: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.25);">${post.role}</span>
+                        </div>
+                        ${isAdmin ? `<button class="btn btn-sm btn-outline-danger py-0 px-2" onclick="deleteBlogPost(${index})" title="Удалить запись"><i class="bi bi-trash"></i></button>` : ''}
                     </div>
                     <h5 class="text-white mb-1">${post.title}</h5>
                     <div class="small mb-3" style="color: var(--accent-cyan);">${post.authors}</div>
@@ -212,19 +236,23 @@ function renderBlogPosts() {
 function renderModules() {
     const container = document.getElementById("modules-container");
     const modules = JSON.parse(localStorage.getItem('pin_modules')) || defaultModules;
+    const isAdmin = localStorage.getItem('user_role') === 'admin';
 
     if (container) {
-        container.innerHTML = modules.map(mod => `
+        container.innerHTML = modules.map((mod, index) => `
             <div class="col-lg-6">
-                <div class="glass-panel h-100">
+                <div class="glass-panel h-100 position-relative">
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
                             <span class="section-tag d-block mb-1">${mod.number}</span>
                             <h3 class="text-white h4 m-0">${mod.title}</h3>
                         </div>
-                        <span class="badge ${mod.badgeClass} border border-opacity-25 px-2 py-1">
-                            <i class="bi bi-clock-history me-1"></i> ${mod.badge}
-                        </span>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge ${mod.badgeClass} border border-opacity-25 px-2 py-1">
+                                <i class="bi bi-clock-history me-1"></i> ${mod.badge}
+                            </span>
+                            ${isAdmin ? `<button class="btn btn-sm btn-outline-danger py-0 px-2" onclick="deleteModule(${index})" title="Удалить модуль"><i class="bi bi-trash"></i></button>` : ''}
+                        </div>
                     </div>
                     <p class="text-secondary small mb-4">${mod.desc}</p>
                     <div class="text-white small fw-semibold mb-2">Функционал:</div>
@@ -270,10 +298,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }).join('');
     }
 
-    // 2. Рендер блога и модулей
-    renderBlogPosts();
-    renderModules();
-
-    // 3. Обновление интерфейса по текущей роли
+    // 2. Инициализация интерфейса и рендер контента
     updateUIForRole();
 });
