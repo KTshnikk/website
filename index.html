@@ -24,7 +24,6 @@
                     <a class="nav-link" href="#admin-panel" id="admin-nav-link" style="display: none;">Админ-панель</a>
                     <a class="nav-link" href="#blog">Блог</a>
                     
-                    <!-- Кнопка авторизации -->
                     <button class="btn btn-sm btn-outline-light rounded-pill px-3 ms-2" id="auth-btn" data-bs-toggle="modal" data-bs-target="#authModal">
                         <i class="bi bi-person-circle me-1"></i> <span id="auth-btn-text">Войти</span>
                     </button>
@@ -116,17 +115,16 @@
             <h2 class="section-title">Команда проекта</h2>
 
             <div class="row g-3" id="team-container">
-                <!-- Заполняется из script.js -->
+                <!-- Динамически из script.js -->
             </div>
         </section>
 
-        <!-- Административная панель (доступна только админу) -->
+        <!-- Административная панель -->
         <section id="admin-panel" class="py-5" style="display: none;">
             <div class="section-tag">Управление контентом</div>
             <h2 class="section-title">Административная панель</h2>
 
             <div class="row g-4">
-                <!-- Форма добавления записи в блог разработки -->
                 <div class="col-lg-6">
                     <div class="glass-panel h-100">
                         <h4 class="text-white mb-3"><i class="bi bi-journal-plus me-2 text-indigo"></i>Добавить запись в блог</h4>
@@ -156,7 +154,6 @@
                     </div>
                 </div>
 
-                <!-- Форма добавления функционального модуля -->
                 <div class="col-lg-6">
                     <div class="glass-panel h-100">
                         <h4 class="text-white mb-3"><i class="bi bi-plus-square me-2 text-cyan"></i>Добавить функциональный модуль</h4>
@@ -170,8 +167,8 @@
                                 <input type="text" id="mod-desc" class="form-control bg-dark text-white border-secondary" placeholder="Описание модуля" required>
                             </div>
                             <div class="mb-3">
-                                <label class="text-secondary small mb-1">Функции (через запятую или точку с запятой)</label>
-                                <textarea id="mod-features" class="form-control bg-dark text-white border-secondary" rows="4" placeholder="Пункт 1; Пункт 2; Пункт 3" required></textarea>
+                                <label class="text-secondary small mb-1">Функции (через точку с запятой)</label>
+                                <textarea id="mod-features" class="form-control bg-dark text-white border-secondary" rows="4" placeholder="Пункт 1; Пункт 2" required></textarea>
                             </div>
                             <button type="submit" class="btn btn-outline-info w-100">Добавить модуль на сайт</button>
                         </form>
@@ -186,63 +183,7 @@
             <h2 class="section-title">Функциональные модули</h2>
 
             <div class="row g-4" id="modules-container">
-                <!-- Модуль 1 -->
-                <div class="col-lg-6">
-                    <div class="glass-panel h-100">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div>
-                                <span class="section-tag d-block mb-1">Модуль 01</span>
-                                <h3 class="text-white h4 m-0">Сервис и Интерактивная карта</h3>
-                            </div>
-                            <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 px-2 py-1">
-                                <i class="bi bi-clock-history me-1"></i> В разработке
-                            </span>
-                        </div>
-                        <p class="text-secondary small mb-4">
-                            Ключевой клиентский блок приложения для поиска, визуализации и работы с локациями.
-                        </p>
-                        <div class="text-white small fw-semibold mb-2">Запланированный функционал:</div>
-                        <ul class="list-unstyled text-secondary small m-0 d-flex flex-column gap-2">
-                            <li class="d-flex align-items-center gap-2">
-                                <i class="bi bi-check2-circle" style="color: var(--accent-indigo);"></i>
-                                <span>Интерактивная карта с метками объектов</span>
-                            </li>
-                            <li class="d-flex align-items-center gap-2">
-                                <i class="bi bi-check2-circle" style="color: var(--accent-indigo);"></i>
-                                <span>Фильтрация по категориям и уровню уединённости</span>
-                            </li>
-                            <li class="d-flex align-items-center gap-2">
-                                <i class="bi bi-check2-circle" style="color: var(--accent-indigo);"></i>
-                                <span>Построение авторских прогулочных маршрутов</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Модуль 2 -->
-                <div class="col-lg-6" id="auth">
-                    <div class="glass-panel h-100">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div>
-                                <span class="section-tag d-block mb-1">Модуль 02</span>
-                                <h3 class="text-white h4 m-0">Авторизация и Права доступа</h3>
-                            </div>
-                            <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1">
-                                <i class="bi bi-shield-check me-1"></i> Активно
-                            </span>
-                        </div>
-                        <p class="text-secondary small mb-4">
-                            Подсистема управления пользователями, сессиями и разграничением прав доступа (RBAC).
-                        </p>
-                        <div class="text-white small fw-semibold mb-2">Статус сессии:</div>
-                        <div class="p-3 mb-3 rounded border border-secondary bg-dark text-white small">
-                            Текущая роль: <strong id="current-role-display" style="color: var(--accent-cyan);">Гость</strong>
-                        </div>
-                        <button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#authModal">
-                            Войти в систему
-                        </button>
-                    </div>
-                </div>
+                <!-- Динамически из script.js -->
             </div>
         </section>
 
@@ -252,39 +193,39 @@
             <h2 class="section-title">Блог разработки</h2>
 
             <div class="blog-timeline" id="blog-container">
-                <!-- Заполняется из script.js -->
+                <!-- Динамически из script.js -->
             </div>
         </section>
 
     </div>
 
-    <!-- Модальное окно авторизации (Логин / Пароль) -->
+    <!-- Модальное окно авторизации -->
     <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-dark text-white border border-secondary">
                 <div class="modal-header border-secondary">
-                    <h5 class="modal-title"><i class="bi bi-box-arrow-in-right me-2"></i>Авторизация в системе PiN</h5>
+                    <h5 class="modal-title"><i class="bi bi-box-arrow-in-right me-2"></i>Авторизация</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="login-form" onsubmit="handleLogin(event)">
                         <div class="mb-3">
-                            <label class="form-label text-secondary small">Логин или Email</label>
-                            <input type="text" id="login-input" class="form-control bg-dark text-white border-secondary" placeholder="например, admin или user" required>
+                            <label class="form-label text-secondary small">Логин</label>
+                            <input type="text" id="login-input" class="form-control bg-dark text-white border-secondary" placeholder="логин" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-secondary small">Пароль</label>
-                            <input type="password" id="password-input" class="form-control bg-dark text-white border-secondary" placeholder="••••••••" required>
+                            <input type="password" id="password-input" class="form-control bg-dark text-white border-secondary" placeholder="пароль" required>
                         </div>
                         <div id="login-error" class="text-danger small mb-3" style="display: none;"></div>
                         <div class="p-2 mb-3 rounded bg-secondary bg-opacity-10 text-secondary small">
-                            💡 <strong></strong> Для входа администратора: <code>admin</code>:<code>admin</code>.
+                            для админа: admin/admin
                         </div>
                         <button type="submit" class="btn btn-primary w-100" style="background-color: var(--accent-indigo);">Войти</button>
                     </form>
                     <div id="logged-in-view" style="display: none;" class="text-center py-3">
-                        <p class="text-success mb-3">Вы успешно авторизованы в системе!</p>
-                        <button class="btn btn-outline-danger btn-sm" onclick="handleLogout()">Выйти из аккаунта</button>
+                        <p class="text-success mb-3">Вы успешно вошли в систему</p>
+                        <button class="btn btn-outline-danger btn-sm" onclick="handleLogout()">Выйти</button>
                     </div>
                 </div>
             </div>

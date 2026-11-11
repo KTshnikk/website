@@ -13,7 +13,7 @@ const teamMembers = [
     { name: "Шаплов Данил", role: "Разработчик (ПМИб-25)", photo: "images/shaplov.jpg", initials: "ДШ" }
 ];
 
-// --- ИСХОДНЫЕ ДАННЫЕ БЛОГА РАЗРАБОТКИ (ПОЛНЫЙ ТЕКСТ) ---
+// --- ДАННЫЕ БЛОГА РАЗРАБОТКИ ---
 const defaultBlogPosts = [
     {
         date: "04.09.2026 – 06.09.2026",
@@ -45,7 +45,7 @@ const defaultBlogPosts = [
     }
 ];
 
-// --- ИСХОДНЫЕ ФУНКЦИОНАЛЬНЫЕ МОДУЛИ ---
+// --- ФУНКЦИОНАЛЬНЫЕ МОДУЛИ ---
 const defaultModules = [
     {
         number: "Модуль 01",
@@ -73,7 +73,7 @@ if (!localStorage.getItem('pin_modules')) {
     localStorage.setItem('pin_modules', JSON.stringify(defaultModules));
 }
 
-// --- УПРАВЛЕНИЕ АВТОРИЗАЦИЕЙ (ЛОГИН / ПАРОЛЬ) ---
+// --- АВТОРИЗАЦИЯ ---
 function handleLogin(event) {
     event.preventDefault();
     const login = document.getElementById('login-input').value.trim();
@@ -134,7 +134,7 @@ function updateUIForRole() {
         if (loginForm) loginForm.style.display = 'none';
         if (loggedInView) loggedInView.style.display = 'block';
     } else {
-        if (roleDisplay) roleDisplay.textContent = 'Гость (Без авторизации)';
+        if (roleDisplay) roleDisplay.textContent = 'Гость';
         if (authBtnText) authBtnText.textContent = 'Войти';
         if (adminPanel) adminPanel.style.display = 'none';
         if (adminNavLink) adminNavLink.style.display = 'none';
@@ -142,12 +142,11 @@ function updateUIForRole() {
         if (loggedInView) loggedInView.style.display = 'none';
     }
 
-    // ВАЖНО: гарантированно обновляем блоки при каждом изменении роли
     renderBlogPosts();
     renderModules();
 }
 
-// --- CRUD: ДОБАВЛЕНИЕ И УДАЛЕНИЕ ЗАПИСЕЙ БЛОГА И МОДУЛЕЙ ---
+// --- CRUD ---
 function handleAddNewBlog(event) {
     event.preventDefault();
     const date = document.getElementById('blog-date').value;
@@ -161,12 +160,11 @@ function handleAddNewBlog(event) {
     localStorage.setItem('pin_blog_posts', JSON.stringify(posts));
 
     document.getElementById('add-blog-form').reset();
-    alert('Новая запись успешно добавлена в блог разработки!');
     renderBlogPosts();
 }
 
 function deleteBlogPost(index) {
-    if (confirm('Вы уверены, что хотите удалить эту запись из блога разработки?')) {
+    if (confirm('Удалить запись?')) {
         let posts = JSON.parse(localStorage.getItem('pin_blog_posts')) || defaultBlogPosts;
         posts.splice(index, 1);
         localStorage.setItem('pin_blog_posts', JSON.stringify(posts));
@@ -193,12 +191,11 @@ function handleAddNewModule(event) {
     localStorage.setItem('pin_modules', JSON.stringify(modules));
 
     document.getElementById('add-module-form').reset();
-    alert('Функциональный модуль успешно добавлен на сайт!');
     renderModules();
 }
 
 function deleteModule(index) {
-    if (confirm('Вы уверены, что хотите удалить этот функциональный модуль?')) {
+    if (confirm('Удалить модуль?')) {
         let modules = JSON.parse(localStorage.getItem('pin_modules')) || defaultModules;
         modules.splice(index, 1);
         localStorage.setItem('pin_modules', JSON.stringify(modules));
@@ -206,7 +203,7 @@ function deleteModule(index) {
     }
 }
 
-// --- ОТРИСОВКА БЛОГА И МОДУЛЕЙ НА СТРАНИЦЕ ---
+// --- ОТРИСОВКА ---
 function renderBlogPosts() {
     const blogContainer = document.getElementById("blog-container");
     const posts = JSON.parse(localStorage.getItem('pin_blog_posts')) || defaultBlogPosts;
@@ -222,7 +219,7 @@ function renderBlogPosts() {
                             <span class="text-secondary small fw-bold me-2"><i class="bi bi-calendar-event me-1"></i> ${post.date}</span>
                             <span class="badge" style="background: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.25);">${post.role}</span>
                         </div>
-                        ${isAdmin ? `<button class="btn btn-sm btn-outline-danger py-0 px-2" onclick="deleteBlogPost(${index})" title="Удалить запись"><i class="bi bi-trash"></i></button>` : ''}
+                        ${isAdmin ? `<button class="btn btn-sm btn-outline-danger py-0 px-2" onclick="deleteBlogPost(${index})" title="Удалить"><i class="bi bi-trash"></i></button>` : ''}
                     </div>
                     <h5 class="text-white mb-1">${post.title}</h5>
                     <div class="small mb-3" style="color: var(--accent-cyan);">${post.authors}</div>
@@ -251,7 +248,7 @@ function renderModules() {
                             <span class="badge ${mod.badgeClass} border border-opacity-25 px-2 py-1">
                                 <i class="bi bi-clock-history me-1"></i> ${mod.badge}
                             </span>
-                            ${isAdmin ? `<button class="btn btn-sm btn-outline-danger py-0 px-2" onclick="deleteModule(${index})" title="Удалить модуль"><i class="bi bi-trash"></i></button>` : ''}
+                            ${isAdmin ? `<button class="btn btn-sm btn-outline-danger py-0 px-2" onclick="deleteModule(${index})" title="Удалить"><i class="bi bi-trash"></i></button>` : ''}
                         </div>
                     </div>
                     <p class="text-secondary small mb-4">${mod.desc}</p>
@@ -270,9 +267,7 @@ function renderModules() {
     }
 }
 
-// --- ОБЩАЯ ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ ---
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Отрисовка команды
     const teamContainer = document.getElementById("team-container");
     const teamCountElement = document.getElementById("team-count");
 
@@ -298,6 +293,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }).join('');
     }
 
-    // 2. Инициализация интерфейса и рендер контента
     updateUIForRole();
 });
