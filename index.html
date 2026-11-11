@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PiN</title>
+    <title>PiN — Платформа локаций</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="styles.css">
@@ -17,11 +17,17 @@
                 <a class="navbar-brand text-white fw-bold d-flex align-items-center gap-2" href="#">
                     <i class="bi bi-geo-alt-fill" style="color: var(--accent-indigo);"></i> PiN
                 </a>
-                <div class="navbar-nav ms-auto d-flex flex-row gap-4">
+                <div class="navbar-nav ms-auto d-flex flex-row align-items-center gap-3">
                     <a class="nav-link" href="#about">О проекте</a>
                     <a class="nav-link" href="#team">Команда</a>
                     <a class="nav-link" href="#service">Сервис</a>
+                    <a class="nav-link" href="#admin-panel" id="admin-nav-link" style="display: none;">Модерация (Админ)</a>
                     <a class="nav-link" href="#blog">Блог</a>
+                    
+                    <!-- Кнопка авторизации -->
+                    <button class="btn btn-sm btn-outline-light rounded-pill px-3 ms-2" id="auth-btn" data-bs-toggle="modal" data-bs-target="#authModal">
+                        <i class="bi bi-person-circle me-1"></i> <span id="auth-btn-text">Войти</span>
+                    </button>
                 </div>
             </div>
         </nav>
@@ -50,7 +56,7 @@
                     <div class="text-secondary small fw-bold mb-3">СВОДНЫЕ ДАННЫЕ ПРОЕКТА</div>
                     <div class="stats-grid">
                         <div class="stat-box">
-                            <div class="fs-4 fw-bold text-white" id="team-count">0</div>
+                            <div class="fs-4 fw-bold text-white" id="team-count">11</div>
                             <div class="text-secondary small">Участников</div>
                         </div>
                         <div class="stat-box">
@@ -110,11 +116,24 @@
             <h2 class="section-title">Команда проекта</h2>
 
             <div class="row g-3" id="team-container">
-                <!-- Заполняется автоматически из script.js -->
+                <!-- Заполняется из script.js -->
             </div>
         </section>
 
-        <!-- Модули -->
+        <!-- Административная панель (видна для роли Admin) -->
+        <section id="admin-panel" class="py-5" style="display: none;">
+            <div class="section-tag">Панель управления</div>
+            <h2 class="section-title">Административная панель (Модерация)</h2>
+
+            <div class="glass-panel">
+                <p class="text-secondary small mb-3">Заявки пользователей на модерацию (CRUD операции и модерация):</p>
+                <div id="admin-requests-list" class="d-flex flex-column gap-3">
+                    <!-- Заполняется из script.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Сервисные модули -->
         <section id="service" class="py-5">
             <div class="section-tag">Архитектура системы</div>
             <h2 class="section-title">Функциональные модули</h2>
@@ -159,28 +178,20 @@
                                 <span class="section-tag d-block mb-1">Модуль 02</span>
                                 <h3 class="text-white h4 m-0">Авторизация и Права доступа</h3>
                             </div>
-                            <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 px-2 py-1">
-                                <i class="bi bi-clock-history me-1"></i> В разработке
+                            <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1" id="auth-status-badge">
+                                <i class="bi bi-shield-check me-1"></i> Интерактивный демо-режим
                             </span>
                         </div>
                         <p class="text-secondary small mb-4">
                             Подсистема управления пользователями, сессиями и разграничением прав доступа (RBAC).
                         </p>
-                        <div class="text-white small fw-semibold mb-2">Запланированный функционал:</div>
-                        <ul class="list-unstyled text-secondary small m-0 d-flex flex-column gap-2">
-                            <li class="d-flex align-items-center gap-2">
-                                <i class="bi bi-check2-circle" style="color: var(--accent-cyan);"></i>
-                                <span>Регистрация, аутентификация и личный кабинет</span>
-                            </li>
-                            <li class="d-flex align-items-center gap-2">
-                                <i class="bi bi-check2-circle" style="color: var(--accent-cyan);"></i>
-                                <span>Роли: Гость, Пользователь, Модератор, Админ</span>
-                            </li>
-                            <li class="d-flex align-items-center gap-2">
-                                <i class="bi bi-check2-circle" style="color: var(--accent-cyan);"></i>
-                                <span>Нейросетевая фильтрация текста и отзывов</span>
-                            </li>
-                        </ul>
+                        <div class="text-white small fw-semibold mb-2">Текущий статус вашей сессии:</div>
+                        <div class="p-3 mb-3 rounded border border-secondary bg-dark text-white small">
+                            Текущая роль: <strong id="current-role-display" style="color: var(--accent-cyan);">Гость</strong>
+                        </div>
+                        <button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#authModal">
+                            Сменить роль / Тест авторизации
+                        </button>
                     </div>
                 </div>
             </div>
@@ -198,6 +209,36 @@
 
     </div>
 
+    <!-- Модальное окно авторизации и выбора роли -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border border-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title"><i class="bi bi-person-lock me-2"></i>Авторизация / Тест ролей</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-secondary small">Выберите роль для тестирования разграничения прав доступа системы PiN:</p>
+                    <div class="d-flex flex-column gap-2">
+                        <button class="btn btn-outline-light text-start p-3" onclick="setRole('guest')" data-bs-dismiss="modal">
+                            <div class="fw-bold">Гость (Без авторизации)</div>
+                            <div class="small text-secondary">Только просмотр меток и публичной информации.</div>
+                        </button>
+                        <button class="btn btn-outline-primary text-start p-3" onclick="setRole('user')" data-bs-dismiss="modal">
+                            <div class="fw-bold text-primary">Пользователь</div>
+                            <div class="small text-secondary">Доступно добавление меток, комментариев и подтверждение локаций.</div>
+                        </button>
+                        <button class="btn btn-outline-danger text-start p-3" onclick="setRole('admin')" data-bs-dismiss="modal">
+                            <div class="fw-bold text-danger">Администратор</div>
+                            <div class="small text-secondary">Полный доступ + Административная панель модерации заявок.</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
